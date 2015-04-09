@@ -1,0 +1,21 @@
+puma:
+  build: .
+  dockerfile: Dockerfile_puma
+  links:
+    - redis
+  volumes:
+    - .:/usr/src/app
+
+nginx:
+  build: .
+  dockerfile: Dockerfile_nginx
+  links:
+    - puma
+  ports:
+    - "80:80"
+    - "443:443"
+  volumes:
+    - .:/var/www/github-notifier/current
+
+redis:
+  image: redis:2.8

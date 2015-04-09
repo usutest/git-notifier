@@ -1,0 +1,6 @@
+FROM nginx
+
+ADD ./docker/nginx/nginx.conf /etc/nginx/nginx.conf
+ADD ./docker/nginx/gitnotifier /etc/nginx/conf.d/gitnotifier
+
+ADD . /var/www/github-notifier/current

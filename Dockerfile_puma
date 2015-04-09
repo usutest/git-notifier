@@ -1,0 +1,5 @@
+FROM ruby:2.2-onbuild
+
+EXPOSE 9292
+
+CMD puma -C config/puma.rb -e development

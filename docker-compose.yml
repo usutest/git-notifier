@@ -1,6 +1,6 @@
-puma:
+sidekiq:
   build: .
-  dockerfile: Dockerfile_puma
+  dockerfile: Dockerfile_sidekiq
   links:
     - redis
   volumes:
@@ -17,5 +17,16 @@ nginx:
   volumes:
     - .:/var/www/github-notifier/current
 
+puma:
+  build: .
+  dockerfile: Dockerfile_puma
+  links:
+    - redis
+  volumes:
+    - .:/usr/src/app
+
 redis:
   image: redis:2.8
+  command: redis-server --appendonly yes
+  volumes:
+    - ./tmp/redis:/data:rw

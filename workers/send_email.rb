@@ -55,7 +55,7 @@ class SendEmail
       )
     end
 
-    mail.deliver
+    mail.deliver if CONFIG['mail']['enabled']
 
     Sidekiq.redis do |conn|
       conn.hset(user_id, :last_email_sent_on, Time.now.to_i) if user_id

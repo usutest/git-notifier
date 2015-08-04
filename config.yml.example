@@ -10,6 +10,7 @@ redis:
     namespace: ghntfr
 
 mail:
+    enabled: true
     method: smtp
     from: Git Notifier <sender@email.com>
     host: smtp.example.org

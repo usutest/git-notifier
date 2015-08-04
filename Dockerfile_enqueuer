@@ -1,7 +1,5 @@
 FROM ruby:2.2-onbuild
 
-EXPOSE 9292
-
 ENV APP_ENV development
 ENV APP_CONFIG_GITHUB_CLIENT_ID someid
 ENV APP_CONFIG_GITHUB_CLIENT_SECRET somesecret
@@ -15,6 +13,8 @@ ENV APP_CONFIG_DOMAIN localhost:4567
 
 ENV APP_CONFIG_SECRET somesecret
 
-ADD ./docker/puma/entrypoint.sh /entrypoint.sh
+ENV APP_ENQUEUER_SLEEP_TIME 300
+
+ADD ./docker/enqueuer/entrypoint.sh /entrypoint.sh
 
 ENTRYPOINT [ "/entrypoint.sh" ]

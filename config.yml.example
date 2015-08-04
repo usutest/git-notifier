@@ -1,13 +1,13 @@
 ---
 github:
-    client_id: someid
-    client_secret: somesecret
+    client_id: APP_CONFIG_GITHUB_CLIENT_ID
+    client_secret: APP_CONFIG_GITHUB_CLIENT_SECRET
 
 redis:
-    host: localhost
-    port: 6379
-    db: 1
-    namespace: ghntfr
+    host: APP_CONFIG_REDIS_HOST
+    port: APP_CONFIG_REDIS_PORT
+    db: APP_CONFIG_REDIS_DB
+    namespace: APP_CONFIG_REDIS_NAMESPACE
 
 mail:
     enabled: true
@@ -18,9 +18,9 @@ mail:
     user: someuser@somedomain.com
     password: somepass
 
-domain: localhost:4567
+domain: APP_CONFIG_DOMAIN #localhost:4567
 
-secret: somesecretzzz
+secret: APP_CONFIG_SECRET
 
 notifications_type:
   - star

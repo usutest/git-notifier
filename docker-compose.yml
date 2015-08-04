@@ -5,6 +5,8 @@ sidekiq:
     - redis
   volumes:
     - .:/usr/src/app
+  environment:
+    - APP_CONFIG_REDIS_HOST=redis
 
 nginx:
   build: .
@@ -16,6 +18,8 @@ nginx:
     - "443:443"
   volumes:
     - .:/var/www/github-notifier/current
+  environment:
+    - APP_UPSTREAM_PUMA=puma
 
 puma:
   build: .
@@ -24,9 +28,11 @@ puma:
     - redis
   volumes:
     - .:/usr/src/app
+  environment:
+    - APP_CONFIG_REDIS_HOST=redis
 
 redis:
   image: redis:3
   command: redis-server --appendonly yes
   volumes:
-    - /tmp:/data:rw
+    - /data

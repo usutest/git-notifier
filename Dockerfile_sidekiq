@@ -1,3 +1,18 @@
 FROM ruby:2.2-onbuild
 
-CMD bundle exec sidekiq -r ./workers/init.rb -q notifications_checker -q send_email -q send_email_signup -q email_builder
+ENV APP_ENV development
+ENV APP_CONFIG_GITHUB_CLIENT_ID someid
+ENV APP_CONFIG_GITHUB_CLIENT_SECRET somesecret
+
+ENV APP_CONFIG_REDIS_HOST localhost
+ENV APP_CONFIG_REDIS_PORT 6379
+ENV APP_CONFIG_REDIS_DB 1
+ENV APP_CONFIG_REDIS_NAMESPACE ghntfr
+
+ENV APP_CONFIG_DOMAIN localhost:4567
+
+ENV APP_CONFIG_SECRET somesecret
+
+ADD ./docker/sidekiq/entrypoint.sh /entrypoint.sh
+
+ENTRYPOINT [ "/entrypoint.sh" ]

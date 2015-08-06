@@ -1,0 +1,26 @@
+## Customize the test machine
+machine:
+  services:
+    - docker
+
+  timezone:
+    America/Los_Angeles # Set the timezone
+
+  node:
+    version: 0.12.0
+
+  # Override /etc/hosts
+  hosts:
+    gitnotifier.local: 127.0.0.1
+
+dependencies:
+  override:
+    - sudo curl -L https://github.com/docker/compose/releases/download/1.3.3/docker-compose-`uname -s`-`uname -m` -o /usr/local/bin/docker-compose
+    - sudo chmod +x /usr/local/bin/docker-compose
+    - npm install -g casperjs@1.1.0-beta3
+    - docker-compose build
+    - docker-compose up -d
+
+test:
+  override:
+    - casperjs test test/casper/unauthenticated.js

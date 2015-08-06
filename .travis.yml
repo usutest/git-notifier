@@ -24,6 +24,8 @@ before_install:
 install:
   # Install https://github.com/moul/travis-docker toolchain
   - curl -sLo - http://j.mp/install-travis-docker | sh -xe
+  - curl -L https://github.com/docker/compose/releases/download/1.3.3/docker-compose-`uname -s`-`uname -m` -o /usr/local/bin/docker-compose
+  - chmod +x /usr/local/bin/docker-compose
 
 before_script:
   - phantomjs --version

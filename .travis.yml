@@ -1,27 +1,37 @@
-language: ruby
-rvm:
-  - 2.0
-  - 2.1
-  - 2.2
-  - ruby-head
+sudo: true                  # Required to install packages
+
+language: node_js
+node_js:
+  - "0.12"
+
+env:
+  global:
+    - DOCKER_VERSION=1.7.1  # Install Docker version 1.7.1
+
+    - BRANCH=stable         # Use 'stable' branch
+
+    - QUIET=1               # Less verbose logging
+    - UML_FIG=0             # Don't install fig
+    - UML_DOCKERCOMPOSE=1   # Install docker-compose
+
 before_install:
-  - curl -sL https://deb.nodesource.com/setup | sudo bash -
-  - sudo apt-get update
-  - sudo apt-get install -y nodejs
-  - sudo npm install -g bower
   - git clone git://github.com/n1k0/casperjs.git ~/casperjs
   - cd ~/casperjs
   - git checkout tags/1.1-beta3
   - export PATH=$PATH:`pwd`/bin
   - cd -
+
+install:
+  # Install https://github.com/moul/travis-docker toolchain
+  - curl -sLo - http://j.mp/install-travis-docker | sh -xe
+
 before_script:
   - phantomjs --version
   - casperjs --version
-  - cp config.yml.example config.yml
-  - bundle install
-  - bower install
-  - rvmsudo bundle exec rackup -p 80 -D
+
 script:
+  - ./run 'docker-compose build'
+  - ./run 'docker-compose up -d'
   - casperjs test test/casper/unauthenticated.js
 
 addons:

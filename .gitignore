@@ -6,3 +6,4 @@ bower_components/
 .git_old*
 scripts/notes.txt
 .capistrano/
+docker-compose.yml

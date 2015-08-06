@@ -2,7 +2,6 @@ FROM nginx
 
 ENV APP_DOMAIN_NAME gitnotifier.local
 ENV APP_UPSTREAM_PUMA localhost
-ENV APP_RESOLVER_NGINX localhost
 
 ADD ./docker/nginx/nginx.conf /etc/nginx/nginx.conf
 ADD ./docker/nginx/gitnotifier /etc/nginx/conf.d/gitnotifier

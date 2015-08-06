@@ -29,8 +29,9 @@ test:
     - casperjs test test/casper/unauthenticated.js
   post:
     - docker ps -a | grep gitnotifier_ | awk '{print $1}' | xargs -n 1 docker logs
-    - git reset --hard
-    - git clean -f -x -d
+    - docker-compose kill
+    - sudo git reset --hard
+    - sudo git clean -f -x -d
 
 deployment:
   hub:

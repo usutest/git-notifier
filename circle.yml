@@ -25,4 +25,4 @@ test:
   override:
     - casperjs test test/casper/unauthenticated.js
   post:
-    - docker ps | grep grep gitnotifier_ | awk '{print $1}' | xargs -n 1 docker logs
+    - docker ps -a | grep gitnotifier_ | awk '{print $1}' | xargs -n 1 docker logs

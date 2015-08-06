@@ -29,3 +29,18 @@ test:
     - casperjs test test/casper/unauthenticated.js
   post:
     - docker ps -a | grep gitnotifier_ | awk '{print $1}' | xargs -n 1 docker logs
+
+deployment:
+  hub:
+    branch: /.*/
+    commands:
+      - docker login -e "$DOCKER_EMAIL" -u "$DOCKER_USER" -p "$DOCKER_PASS"
+      - docker build -f Dockerfile_puma -t andreausu/ghntfr-puma .
+      - docker build -f Dockerfile_sidekiq -t andreausu/ghntfr-sidekiq .
+      - docker build -f Dockerfile_enqueuer -t andreausu/ghntfr-enqueuer .
+      - docker tag andreausu/ghntfr-puma andreausu/ghntfr-puma:`echo "$CIRCLE_BRANCH" | sed 's/[^a-zA-Z0-9_\-]/-/g'`
+      - docker tag andreausu/ghntfr-sidekiq andreausu/ghntfr-sidekiq:`echo "$CIRCLE_BRANCH" | sed 's/[^a-zA-Z0-9_\-]/-/g'`
+      - docker tag andreausu/ghntfr-enqueuer andreausu/ghntfr-enqueuer:`echo "$CIRCLE_BRANCH" | sed 's/[^a-zA-Z0-9_\-]/-/g'`
+      - docker push andreausu/ghntfr-puma:`echo "$CIRCLE_BRANCH" | sed 's/[^a-zA-Z0-9_\-]/-/g'`
+      - docker push andreausu/ghntfr-sidekiq:`echo "$CIRCLE_BRANCH" | sed 's/[^a-zA-Z0-9_\-]/-/g'`
+      - docker push andreausu/ghntfr-enqueuer:`echo "$CIRCLE_BRANCH" | sed 's/[^a-zA-Z0-9_\-]/-/g'`

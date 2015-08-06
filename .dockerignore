@@ -7,3 +7,4 @@ tmp/pids/*
 tmp/sockets/*
 scripts/notes.txt
 .capistrano/
+docker-compose.yml

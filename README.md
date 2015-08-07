@@ -4,7 +4,7 @@ Git Notifier
 [![Build Status](https://travis-ci.org/andreausu/git-notifier.svg?branch=travis)](https://travis-ci.org/andreausu/git-notifier) [![Dependency Status](https://gemnasium.com/andreausu/git-notifier.svg)](https://gemnasium.com/andreausu/git-notifier)
 
 Git Notifier is a Sinatra app that makes possible to receive email notifications for interesting GitHub events.
-
+test
 The supported events are:
 - A user stars one of your repositories
 - A user forks one of your repositories
